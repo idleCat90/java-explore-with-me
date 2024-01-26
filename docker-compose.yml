@@ -8,7 +8,7 @@ services:
       - "9090:9090"
       - "9091:9091"
     depends_on:
-      - stats-db
+      - stat-db
     environment:
       - STAT_DB=stat_db
       - STAT_DB_HOST=ewm_stat_db
@@ -35,7 +35,7 @@ services:
       - "8081:8081"
     depends_on:
       - main-db
-      - stats-server
+      - stat-server
     environment:
       - MAIN_DB=main_db
       - MAIN_DB_HOST=ewm_main_db

@@ -26,7 +26,7 @@ public interface StatsRepository extends JpaRepository<Hit, Long> {
                                                                                  LocalDateTime end,
                                                                                  List<String> uris);
 
-    @Query("select new ru.practicum.ewm.StatsResponseDto(hit.app, hit.uri, count(distinct hit.ip)) " +
+    @Query("select new ru.practicum.ewm.StatsResponseDto(hit.app, hit.uri, count(hit.ip)) " +
             "from Hit as hit " +
             "where hit.timestamp between ?1 and ?2 " +
             "group by hit.app, hit.uri " +
@@ -34,7 +34,7 @@ public interface StatsRepository extends JpaRepository<Hit, Long> {
     List<StatsResponseDto> findAllByTimestampBetweenStartAndEnd(LocalDateTime start,
                                                                 LocalDateTime end);
 
-    @Query("select new ru.practicum.ewm.StatsResponseDto(hit.app, hit.uri, count(distinct hit.ip)) " +
+    @Query("select new ru.practicum.ewm.StatsResponseDto(hit.app, hit.uri, count(hit.ip)) " +
             "from Hit as hit " +
             "where hit.timestamp between ?1 and ?2 and hit.uri in ?3 " +
             "group by hit.app, hit.uri " +

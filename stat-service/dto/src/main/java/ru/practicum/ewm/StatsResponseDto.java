@@ -12,5 +12,5 @@ import lombok.ToString;
 public class StatsResponseDto {
     private String app;
     private String uri;
-    private Integer hits;
+    private long hits;
 }

@@ -1,6 +1,6 @@
 version: '3.1'
 services:
-  stat-server:
+  stats-server:
     build: stat-service/server
     image: server
     container_name: ewm_stat_server
@@ -16,7 +16,7 @@ services:
       - STAT_USER=ewm
       - STAT_PASSWORD=ewm
 
-  stat-db:
+  stats-db:
     image: postgres:14-alpine
     container_name: ewm_stat_db
     ports:
@@ -26,7 +26,7 @@ services:
       - POSTGRES_USER=ewm
       - POSTGRES_PASSWORD=ewm
 
-  main-service:
+  ewm-service:
     build: main-service
     image: main-service:latest
     container_name: ewm_main_service
@@ -44,7 +44,7 @@ services:
       - MAIN_PASSWORD=ewm
       - STAT_SERVER_URL=http://ewm_stat_server:9090
 
-  main-db:
+  ewm-db:
     image: postgres:14-alpine
     container_name: ewm_main_db
     ports:

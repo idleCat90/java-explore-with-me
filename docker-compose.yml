@@ -22,13 +22,13 @@ services:
     ports:
       - "6541:5432"
     environment:
-      - POSTGRES_DB=stats_db
+      - POSTGRES_DB=stat_db
       - POSTGRES_USER=ewm
       - POSTGRES_PASSWORD=ewm
 
   main-service:
     build: main-service
-    image: ewm_main_service:latest
+    image: main-service:latest
     container_name: ewm_main_service
     ports:
       - "8080:8080"

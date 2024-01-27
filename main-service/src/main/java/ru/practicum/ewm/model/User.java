@@ -6,23 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Hit {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String app;
-    @Column(nullable = false)
-    private String uri;
-    @Column(nullable = false)
-    private String ip;
-    @Column(name = "time_stamp", nullable = false)
-    private LocalDateTime timestamp;
+    private String name;
+    @Column(nullable = false, unique = true)
+    private String email;
 }

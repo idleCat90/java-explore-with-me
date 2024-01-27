@@ -19,7 +19,7 @@ public class BaseClient {
         return makeAndSendRequest(HttpMethod.POST, path, null, body);
     }
 
-    protected <T> ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
+    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
         return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
     }
 
@@ -28,17 +28,17 @@ public class BaseClient {
                                                           @Nullable T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
 
-        ResponseEntity<Object> exploreWithMeServerResponse;
+        ResponseEntity<Object> responseEntity;
         try {
             if (parameters != null) {
-                exploreWithMeServerResponse = restTemplate.exchange(path, method, requestEntity, Object.class, parameters);
+                responseEntity = restTemplate.exchange(path, method, requestEntity, Object.class, parameters);
             } else {
-                exploreWithMeServerResponse = restTemplate.exchange(path, method, requestEntity, Object.class);
+                responseEntity = restTemplate.exchange(path, method, requestEntity, Object.class);
             }
         } catch (HttpStatusCodeException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
         }
-        return prepareResponse(exploreWithMeServerResponse);
+        return prepareResponse(responseEntity);
     }
 
     private HttpHeaders defaultHeaders() {

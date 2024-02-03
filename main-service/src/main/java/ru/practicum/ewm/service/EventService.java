@@ -10,11 +10,11 @@ public interface EventService {
 
     EventFullDto getEventById(Long eventId, HttpServletRequest request);
 
-    List<EventFullDto> getAllEventsPublic(SearchEventParams searchEventParams, HttpServletRequest request);
+    List<EventShortDto> getAllEventsPublic(SearchEventParams searchEventParams, HttpServletRequest request);
 
     List<EventFullDto> getAllEventsAdmin(SearchEventParamsAdmin searchEventParamsAdmin);
 
-    List<EventFullDto> getEventsByUserId(Long userId, Integer from, Integer size);
+    List<EventShortDto> getEventsByUserId(Long userId, Integer from, Integer size);
 
     EventFullDto getEventByUserIdAndEventId(Long userId, Long eventId);
 

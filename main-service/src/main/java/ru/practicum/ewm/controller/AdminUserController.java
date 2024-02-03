@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @Validated
 @RequiredArgsConstructor
-public class UserController {
+public class AdminUserController {
     private final UserService userService;
 
     @GetMapping

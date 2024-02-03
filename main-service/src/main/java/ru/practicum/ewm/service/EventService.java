@@ -22,7 +22,7 @@ public interface EventService {
 
     EventFullDto updateEventByUserIdAndEventId(Long userId, Long eventId, UpdateEventUserRequest updateRequest);
 
-    EventFullDto updateEventAdmin(Long eventId, SearchEventParamsAdmin searchEventParamsAdmin);
+    EventFullDto updateEventAdmin(Long eventId, UpdateEventAdminRequest updateEventAdminRequest);
 
     EventRequestStatusUpdateResponse updateRequestStatus(Long userId, Long eventId, EventRequestStatusUpdateRequest updateRequest);
 

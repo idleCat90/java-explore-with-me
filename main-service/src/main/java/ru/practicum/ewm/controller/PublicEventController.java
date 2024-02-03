@@ -23,14 +23,14 @@ public class PublicEventController {
     private final EventService eventService;
 
     @GetMapping
-    public List<EventShortDto> getEvents(@RequestBody @Valid SearchEventParams params,
+    public List<EventShortDto> searchEvents(@RequestBody @Valid SearchEventParams params,
                                          HttpServletRequest request) {
         log.info("GET \"/events\" params={}", params);
         return eventService.getAllEventsPublic(params, request);
     }
 
     @GetMapping("/{eventId}")
-    public EventFullDto getEventById(@PathVariable @Min(0) Long eventId,
+    public EventFullDto getEventById(@PathVariable @Min(1) Long eventId,
                                      HttpServletRequest request) {
         log.info("GET \"/events/{}\"", eventId);
         return eventService.getEventById(eventId, request);

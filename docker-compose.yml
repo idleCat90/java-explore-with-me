@@ -42,6 +42,7 @@ services:
       - MAIN_DB_PORT=5432
       - MAIN_USER=ewm
       - MAIN_PASSWORD=ewm
+      - STAT_SERVER_URL=http://ewm_stat_server:9090
 
   main-db:
     image: postgres:14-alpine

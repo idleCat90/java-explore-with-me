@@ -15,10 +15,9 @@ public class BaseClient {
         this.restTemplate = restTemplate;
     }
 
-    protected <T> void post(T body) {
-        makeAndSendRequest(HttpMethod.POST, "/hit", null, body);
+    protected <T> ResponseEntity<Object> post(String path, T body) {
+        return makeAndSendRequest(HttpMethod.POST, path, null, body);
     }
-
     protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
         return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
     }

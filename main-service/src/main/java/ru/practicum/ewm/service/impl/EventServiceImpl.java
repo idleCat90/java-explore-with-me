@@ -400,12 +400,7 @@ public class EventServiceImpl implements EventService {
     }
 
     private void addStats(HttpServletRequest request) {
-        client.postHit(HitDto.builder()
-                .app(applicationName)
-                .uri(request.getRequestURI())
-                .ip(request.getRemoteAddr())
-                .timestamp(LocalDateTime.now())
-                .build());
+        client.postHit(request);
     }
 
     private Map<Long, Long> getAllEventViews(List<Event> events) {

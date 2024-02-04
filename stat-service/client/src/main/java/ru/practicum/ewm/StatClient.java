@@ -8,6 +8,9 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -18,7 +21,9 @@ public class StatClient extends BaseClient {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
 
-    @Autowired
+    @Value("${server.application.name:ewm-main-service}")
+    private String applicationName;
+
     public StatClient(@Value("${server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
@@ -26,8 +31,14 @@ public class StatClient extends BaseClient {
                 .build());
     }
 
-    public void postHit(HitDto hit) {
-        post(hit);
+    public ResponseEntity<Object> postHit(HttpServletRequest request) {
+        final HitDto hit = HitDto.builder()
+                .app(applicationName)
+                .uri(request.getRequestURI())
+                .ip(request.getRemoteAddr())
+                .timestamp(Timestamp.from(Instant.now()).toLocalDateTime())
+                .build();
+        return post("/hit", hit);
     }
 
     public ResponseEntity<Object> getStats(LocalDateTime start,

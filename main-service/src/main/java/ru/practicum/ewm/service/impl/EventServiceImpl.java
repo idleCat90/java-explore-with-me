@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.HitDto;
-import ru.practicum.ewm.StatsClient;
+import ru.practicum.ewm.StatClient;
 import ru.practicum.ewm.StatsResponseDto;
 import ru.practicum.ewm.dto.*;
 import ru.practicum.ewm.exception.ConflictException;
@@ -42,7 +42,7 @@ public class EventServiceImpl implements EventService {
     private final CategoryRepository categoryRepository;
     private final RequestRepository requestRepository;
     private final LocationRepository locationRepository;
-    private final StatsClient client;
+    private final StatClient client;
     private final ObjectMapper objectMapper;
 
     @Value("${server.application.name:ewm-service}")

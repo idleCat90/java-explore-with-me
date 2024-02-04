@@ -10,9 +10,9 @@ import ru.practicum.ewm.Constants;
 import ru.practicum.ewm.HitDto;
 import ru.practicum.ewm.StatsRequestDto;
 import ru.practicum.ewm.StatsResponseDto;
-import ru.practicum.ewm.exception.DateNotValidException;
 import ru.practicum.ewm.service.StatsService;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -35,15 +35,13 @@ public class StatsController {
     public List<StatsResponseDto> getStats(
             @RequestParam @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT) LocalDateTime start,
             @RequestParam @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT) LocalDateTime end,
-            @RequestParam(required = false) List<String> uris,
+            @RequestParam(defaultValue = "") List<String> uris,
             @RequestParam(defaultValue = "false") boolean unique) {
-        if (uris == null) {
-            uris = Collections.emptyList();
-        }
+
         log.info("GET \"/stats\" start={}, end={}, uris={}, unique={}", start, end, uris, unique);
-        if (start.isAfter(end)) {
+        if (end.isBefore(start)) {
             log.error("Start must be before end");
-            throw new DateNotValidException("Start must be before end");
+            throw new InvalidParameterException("Start must be before end");
         }
         return service.readStats(
                 StatsRequestDto.builder()

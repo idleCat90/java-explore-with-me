@@ -16,14 +16,13 @@ import java.time.LocalDateTime;
 public class Hit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "app")
+    @Column(nullable = false)
     private String app;
-    @Column(name = "uri")
+    @Column(nullable = false)
     private String uri;
-    @Column(name = "ip")
+    @Column(nullable = false)
     private String ip;
-    @Column(name = "time_stamp")
+    @Column(name = "time_stamp", nullable = false)
     private LocalDateTime timestamp;
 }

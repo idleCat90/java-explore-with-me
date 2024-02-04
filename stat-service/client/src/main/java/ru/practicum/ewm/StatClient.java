@@ -1,6 +1,5 @@
 package ru.practicum.ewm;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class StatClient extends BaseClient {
     @Value("${server.application.name:ewm-main-service}")
     private String applicationName;
 
-    public StatClient(@Value("${server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatClient(@Value("${stat-server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new)

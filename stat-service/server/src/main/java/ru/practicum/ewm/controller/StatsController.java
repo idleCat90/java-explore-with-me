@@ -14,7 +14,6 @@ import ru.practicum.ewm.service.StatsService;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j

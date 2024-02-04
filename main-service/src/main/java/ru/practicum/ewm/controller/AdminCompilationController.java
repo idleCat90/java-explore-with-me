@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.dto.CompilationDto;
 import ru.practicum.ewm.dto.NewCompilationDto;
+import ru.practicum.ewm.dto.UpdateCompilationDto;
 import ru.practicum.ewm.service.CompilationService;
 
 import javax.validation.Valid;
@@ -28,9 +29,9 @@ public class AdminCompilationController {
 
     @PatchMapping("/{compId}")
     public CompilationDto updateCompilation(@PathVariable Long compId,
-                                            @RequestBody @Valid CompilationDto compilationDto) {
-        log.info("PATCH \"/admin/compilations/{}\" body={}", compId, compilationDto);
-        return compilationService.updateCompilation(compId, compilationDto);
+                                            @RequestBody @Valid UpdateCompilationDto updateCompilationDto) {
+        log.info("PATCH \"/admin/compilations/{}\" body={}", compId, updateCompilationDto);
+        return compilationService.updateCompilation(compId, updateCompilationDto);
     }
 
     @DeleteMapping("/{compId}")

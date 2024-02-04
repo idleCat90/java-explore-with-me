@@ -7,9 +7,6 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -29,14 +26,8 @@ public class StatsClient extends BaseClient {
                 .build());
     }
 
-    public ResponseEntity<Object> postHit(HttpServletRequest request) {
-        final HitDto hit = HitDto.builder()
-                .app(applicationName)
-                .uri(request.getRequestURI())
-                .ip(request.getRemoteAddr())
-                .timestamp(Timestamp.from(Instant.now()).toLocalDateTime())
-                .build();
-        return post("/hit", hit);
+    public void postHit(HitDto hit) {
+        post("/hit", hit);
     }
 
     public ResponseEntity<Object> getStats(LocalDateTime start,

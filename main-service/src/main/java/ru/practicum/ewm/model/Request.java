@@ -6,7 +6,7 @@ import ru.practicum.ewm.model.state.RequestStatus;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name = "request")
+@Entity(name = "requests")
 @Getter
 @Setter
 @AllArgsConstructor

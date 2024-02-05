@@ -9,7 +9,7 @@ import ru.practicum.ewm.model.state.EventState;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name = "event")
+@Entity(name = "events")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

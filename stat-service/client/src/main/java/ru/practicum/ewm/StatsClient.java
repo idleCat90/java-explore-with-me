@@ -9,18 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class StatsClient extends BaseClient {
-
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
 
     @Value("${server.application.name:ewm-main-service}")
     private String applicationName;
@@ -62,9 +57,4 @@ public class StatsClient extends BaseClient {
         uriBuilder.append("&uris={uris}");
         return get(uriBuilder.toString(), parameters);
     }
-
-    private String encode(String value) {
-        return URLEncoder.encode(value, StandardCharsets.UTF_8);
-    }
-
 }

@@ -29,11 +29,12 @@ public class StatsController {
     }
 
     @GetMapping("/stats")
-    public List<StatsResponseDto> getStats(
-            @RequestParam @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT) LocalDateTime start,
-            @RequestParam @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT) LocalDateTime end,
-            @RequestParam(defaultValue = "") List<String> uris,
-            @RequestParam(defaultValue = "false") boolean unique) {
+    public List<StatsResponseDto> getStats(@RequestParam @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT)
+                                           LocalDateTime start,
+                                           @RequestParam @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT)
+                                           LocalDateTime end,
+                                           @RequestParam(defaultValue = "") List<String> uris,
+                                           @RequestParam(defaultValue = "false") boolean unique) {
 
         log.info("GET \"/stats\" start={}, end={}, uris={}, unique={}", start, end, uris, unique);
         return service.readStats(StatsRequestDto.builder()

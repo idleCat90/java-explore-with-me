@@ -25,7 +25,7 @@ public class HitDto {
     @NotBlank(groups = {Marker.OnCreate.class})
     @Size(max = 15, groups = {Marker.OnCreate.class})
     private String ip;
-    @NotNull
+    @NotNull(groups = {Marker.OnCreate.class})
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_TIME_FORMAT)
     private LocalDateTime timestamp;
 }

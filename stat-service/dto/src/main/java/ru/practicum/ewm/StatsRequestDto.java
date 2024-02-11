@@ -9,13 +9,11 @@ import java.util.List;
 
 @Getter
 @ToString
-@Builder(toBuilder = true)
+@Builder
 public class StatsRequestDto {
     private List<String> uris;
-    @Builder.Default
-    private LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
-    @Builder.Default
-    private LocalDateTime end = LocalDateTime.now();
+    private LocalDateTime start;
+    private LocalDateTime end;
     private Boolean unique;
     private String app;
 }

@@ -60,4 +60,5 @@ public class ErrorHandler {
 
         return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND.name(), e.getMessage(),
                 "Not Found", LocalDateTime.now().format(DATE_TIME_FORMATTER)), HttpStatus.NOT_FOUND);
-    }}
+    }
+}

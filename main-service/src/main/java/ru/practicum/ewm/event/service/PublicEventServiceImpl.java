@@ -24,7 +24,7 @@ import java.util.Map;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Slf4j
-public class PublicEventServiceImpl implements PublicEventService{
+public class PublicEventServiceImpl implements PublicEventService {
     private final EventRepository eventRepository;
     private final StatsService statsService;
 

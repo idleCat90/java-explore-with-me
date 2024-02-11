@@ -19,6 +19,7 @@ import java.util.List;
 @Slf4j
 public class PublicCategoryServiceImpl implements PublicCategoryService {
     private final CategoryRepository categoryRepository;
+
     @Override
     public List<CategoryDto> readAllCategories(Integer from, Integer size) {
         log.debug("Method call: readAllCategories()");

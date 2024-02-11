@@ -16,8 +16,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class CompilationRequest {
-    @NotBlank(groups = {onCreate.class})
-    @Size(max = 50, groups = {onCreate.class, onUpdate.class})
+    @NotBlank(groups = {OnCreate.class})
+    @Size(max = 50, groups = {OnCreate.class, OnUpdate.class})
     private String title;
     private Boolean pinned;
     private Set<Long> events = new HashSet<>();

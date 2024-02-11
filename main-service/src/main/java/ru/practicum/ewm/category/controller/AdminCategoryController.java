@@ -11,8 +11,6 @@ import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.category.service.AdminCategoryService;
 import ru.practicum.ewm.utility.Util.Marker.*;
 
-import javax.validation.constraints.Positive;
-
 @RestController
 @RequestMapping("/admin/categories")
 @Validated
@@ -23,7 +21,7 @@ public class AdminCategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<CategoryDto> addCategory(@RequestBody @Validated(onCreate.class)
+    public ResponseEntity<CategoryDto> addCategory(@RequestBody @Validated(OnCreate.class)
                                                    CategoryDto categoryDto,
                                                    BindingResult bindingResult) {
         log.debug("POST /admin/categories with body={}", categoryDto);
@@ -38,7 +36,7 @@ public class AdminCategoryController {
 
     @PatchMapping("/{catId}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long catId,
-                                                      @RequestBody @Validated(onUpdate.class) CategoryDto categoryDto) {
+                                                      @RequestBody @Validated(OnUpdate.class) CategoryDto categoryDto) {
         log.debug("PATCH /admin/categories/{} with body={}", catId, categoryDto);
         return ResponseEntity
                 .ok(categoryService.updateCategory(catId, categoryDto));

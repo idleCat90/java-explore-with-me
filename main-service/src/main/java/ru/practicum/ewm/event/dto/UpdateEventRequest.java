@@ -17,19 +17,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class UpdateEventRequest {
-    @Size(min = 20, max = 2000, groups = onUpdate.class)
+    @Size(min = 20, max = 2000, groups = OnUpdate.class)
     private String annotation;
     private Long category;
-    @Size(min = 20, max = 7000, groups = onUpdate.class)
+    @Size(min = 20, max = 7000, groups = OnUpdate.class)
     private String description;
-    @Future(groups = onUpdate.class)
+    @Future(groups = OnUpdate.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Util.DATE_TIME_FORMAT)
     private LocalDateTime eventDate;
     private LocationDto location;
     private Boolean paid;
-    @PositiveOrZero(groups = onUpdate.class)
+    @PositiveOrZero(groups = OnUpdate.class)
     private Integer participantLimit;
     private Boolean requestModeration;
-    @Size(min = 3, max = 120, groups = onUpdate.class)
+    @Size(min = 3, max = 120, groups = OnUpdate.class)
     private String title;
 }

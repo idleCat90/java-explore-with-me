@@ -9,8 +9,8 @@ public class Util {
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public interface Marker {
-        interface onCreate {}
-        interface onUpdate {}
+        interface OnCreate {}
+        interface OnUpdate {}
     }
 
     public PageRequest getPageRequestAsc(String sortBy, Integer from, Integer size) {

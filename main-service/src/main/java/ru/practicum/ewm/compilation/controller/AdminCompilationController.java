@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
 import ru.practicum.ewm.compilation.dto.CompilationRequest;
 import ru.practicum.ewm.compilation.service.AdminCompilationService;
-import ru.practicum.ewm.utility.Util.Marker.onCreate;
-import ru.practicum.ewm.utility.Util.Marker.onUpdate;
+import ru.practicum.ewm.utility.Util.Marker.OnCreate;
+import ru.practicum.ewm.utility.Util.Marker.OnUpdate;
 
 @RestController
 @RequestMapping("/admin/compilations")
@@ -22,7 +22,7 @@ public class AdminCompilationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<CompilationDto> postCompilation(@RequestBody @Validated(onCreate.class)
+    public ResponseEntity<CompilationDto> postCompilation(@RequestBody @Validated(OnCreate.class)
                                                           CompilationRequest compilationRequest) {
         log.debug("POST /admin/compilations, dto={}", compilationRequest);
         return ResponseEntity
@@ -32,7 +32,7 @@ public class AdminCompilationController {
 
     @PatchMapping("/{compId}")
     public ResponseEntity<CompilationDto> patchCompilation(@PathVariable Long compId,
-                                                           @RequestBody @Validated(onUpdate.class)
+                                                           @RequestBody @Validated(OnUpdate.class)
                                                            CompilationRequest compilationRequest) {
         log.debug("PATCH /admin/compilations/{}, dto={}", compId, compilationRequest);
         return ResponseEntity.ok(compilationService.updateCompilation(compId, compilationRequest));

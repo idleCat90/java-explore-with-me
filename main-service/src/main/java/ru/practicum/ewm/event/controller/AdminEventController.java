@@ -11,7 +11,7 @@ import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.model.state.EventState;
 import ru.practicum.ewm.event.service.AdminEventService;
 import ru.practicum.ewm.utility.Util;
-import ru.practicum.ewm.utility.Util.Marker.onUpdate;
+import ru.practicum.ewm.utility.Util.Marker.OnUpdate;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -28,7 +28,7 @@ public class AdminEventController {
 
     @PatchMapping("/{eventId}")
     public ResponseEntity<EventFullDto> patchEvent(@PathVariable Long eventId,
-                                                   @RequestBody @Validated({onUpdate.class})
+                                                   @RequestBody @Validated({OnUpdate.class})
                                                    UpdateEventAdminRequest update) {
         log.debug("PATCH /admin/events/{} with body={}", eventId, update);
         return ResponseEntity.ok(eventService.updateEvent(eventId, update));

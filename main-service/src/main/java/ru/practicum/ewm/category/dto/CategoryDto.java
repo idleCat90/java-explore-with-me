@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class CategoryDto {
     private Long id;
-    @NotBlank(groups = {onCreate.class, onUpdate.class})
-    @Size(min = 1, max = 50, groups = {onCreate.class, onUpdate.class})
+    @NotBlank(groups = {OnCreate.class, OnUpdate.class})
+    @Size(min = 1, max = 50, groups = {OnCreate.class, OnUpdate.class})
     private String name;
 }

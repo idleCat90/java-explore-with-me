@@ -10,7 +10,7 @@ import ru.practicum.ewm.user.dto.NewUserRequest;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.dto.mapper.UserMapper;
 import ru.practicum.ewm.user.service.UserService;
-import ru.practicum.ewm.utility.Util.Marker.onCreate;
+import ru.practicum.ewm.utility.Util.Marker.OnCreate;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -26,7 +26,7 @@ public class AdminUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDto> createUser(@RequestBody @Validated({onCreate.class}) NewUserRequest newUserRequest) {
+    public ResponseEntity<UserDto> createUser(@RequestBody @Validated({OnCreate.class}) NewUserRequest newUserRequest) {
         log.info("POST /admin/users with body={}", newUserRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

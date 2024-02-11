@@ -23,8 +23,11 @@ import java.time.format.DateTimeFormatter;
 public class ErrorHandler {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(Util.DATE_TIME_FORMAT);
 
-    @ExceptionHandler({MissingRequestHeaderException.class, MethodArgumentNotValidException.class,
-            IncorrectParameterException.class, ConstraintViolationException.class, MissingServletRequestParameterException.class})
+    @ExceptionHandler({MissingRequestHeaderException.class,
+            MethodArgumentNotValidException.class,
+            IncorrectParameterException.class,
+            ConstraintViolationException.class,
+            MissingServletRequestParameterException.class})
     public ResponseEntity<ApiError> handleBadRequest(final Exception e) {
         log.error("Status: {}, Description: {}, Timestamp: {}",
                 HttpStatus.BAD_REQUEST, e.getMessage(), LocalDateTime.now());
@@ -43,7 +46,8 @@ public class ErrorHandler {
     }
 
 
-    @ExceptionHandler({ConflictException.class, DataIntegrityViolationException.class})
+    @ExceptionHandler({ConflictException.class,
+            DataIntegrityViolationException.class})
     public ResponseEntity<ApiError> handleConflict(final Exception e) {
         log.error("Status: {}, Description: {}, Timestamp: {}",
                 HttpStatus.CONFLICT, e.getMessage(), LocalDateTime.now());

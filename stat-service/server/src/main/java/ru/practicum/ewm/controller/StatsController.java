@@ -23,7 +23,7 @@ public class StatsController {
 
     @PostMapping("/hit")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public HitDto hit(@RequestBody @Validated(Marker.onCreate.class) HitDto hit) {
+    public HitDto hit(@RequestBody @Validated(Marker.OnCreate.class) HitDto hit) {
         log.info("POST \"/hit\" Body={}", hit);
         return service.saveHit(hit);
     }

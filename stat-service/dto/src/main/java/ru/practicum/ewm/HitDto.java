@@ -16,14 +16,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class HitDto {
-    @NotBlank(groups = {Marker.onCreate.class})
-    @Size(max = 50, groups = {Marker.onCreate.class})
+    @NotBlank(groups = {Marker.OnCreate.class})
+    @Size(max = 50, groups = {Marker.OnCreate.class})
     private String app;
-    @NotBlank(groups = {Marker.onCreate.class})
-    @Size(max = 50, groups = {Marker.onCreate.class})
+    @NotBlank(groups = {Marker.OnCreate.class})
+    @Size(max = 50, groups = {Marker.OnCreate.class})
     private String uri;
-    @NotBlank(groups = {Marker.onCreate.class})
-    @Size(max = 15, groups = {Marker.onCreate.class})
+    @NotBlank(groups = {Marker.OnCreate.class})
+    @Size(max = 15, groups = {Marker.OnCreate.class})
     private String ip;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_TIME_FORMAT)

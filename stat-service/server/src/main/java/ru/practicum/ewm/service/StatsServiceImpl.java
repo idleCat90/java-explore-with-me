@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.HitDto;
 import ru.practicum.ewm.StatsRequestDto;
 import ru.practicum.ewm.StatsResponseDto;
+import ru.practicum.ewm.exception.DateNotValidException;
 import ru.practicum.ewm.model.Hit;
 import ru.practicum.ewm.repository.StatsRepository;
 
@@ -35,6 +36,11 @@ public class StatsServiceImpl implements StatsService {
     public List<StatsResponseDto> readStats(StatsRequestDto requestDto) {
         log.debug("readStats() with dto: {}", requestDto);
         boolean noUris = requestDto.getUris().isEmpty();
+
+        if (requestDto.getStart().isAfter(requestDto.getEnd())) {
+            log.error("Start must be before end");
+            throw new DateNotValidException("Start must be before end");
+        }
 
         if (requestDto.getUnique()) {
             if (noUris) {

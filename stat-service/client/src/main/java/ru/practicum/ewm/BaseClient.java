@@ -19,14 +19,15 @@ public class BaseClient {
         return makeAndSendRequest(HttpMethod.POST, path, null, body);
     }
 
-    protected <T> ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
+    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
         return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
     }
 
     private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path,
                                                           @Nullable Map<String, Object> parameters,
                                                           @Nullable T body) {
-        HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
+
+        HttpEntity<T> requestEntity = body == null ? null : new HttpEntity<>(body, defaultHeaders());
 
         ResponseEntity<Object> exploreWithMeServerResponse;
         try {

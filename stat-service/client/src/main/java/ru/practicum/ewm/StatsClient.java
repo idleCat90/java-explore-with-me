@@ -5,24 +5,22 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class StatsClient extends BaseClient {
-
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
 
     @Value("${server.application.name:ewm-main-service}")
     private String applicationName;
 
-    public StatsClient(@Value("${server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatsClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new)
@@ -39,25 +37,24 @@ public class StatsClient extends BaseClient {
         return post("/hit", hit);
     }
 
-    public ResponseEntity<Object> getStats(LocalDateTime start,
-                                           LocalDateTime end,
+    public ResponseEntity<Object> getStats(String start,
+                                           String end,
                                            @Nullable List<String> uris,
-                                           @Nullable boolean unique) {
-        StringBuilder uriBuilder = new StringBuilder("/stats/?start={start}&end={end}");
-        Map<String, Object> parameters = Map.of(
-                "start", start.format(formatter),
-                "end", end.format(formatter));
+                                           boolean unique) {
+        StringBuilder uriBuilder = new StringBuilder("/stats/?start={start}&end={end}&unique={unique}");
+        Map<String, Object> parameters;
 
-        if (uris != null) {
-            parameters.put("uris", String.join(",", uris));
-            uriBuilder.append("&uris={uris}");
+        if (uris == null) {
+            parameters = Map.of("start", start,
+                    "end", end,
+                    "unique", unique);
+            return get(uriBuilder.toString(), parameters);
         }
-
-        if (unique) {
-            parameters.put("unique", true);
-            uriBuilder.append("&unique={unique}");
-        }
-
+        parameters = Map.of("start", start,
+                "end", end,
+                "uris", String.join(",", uris),
+                "unique", unique);
+        uriBuilder.append("&uris={uris}");
         return get(uriBuilder.toString(), parameters);
     }
 }

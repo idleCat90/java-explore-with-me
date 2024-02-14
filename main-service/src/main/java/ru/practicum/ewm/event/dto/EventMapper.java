@@ -47,6 +47,7 @@ public class EventMapper {
                 .state(event.getState())
                 .title(event.getTitle())
                 .views(event.getViews())
+                .commentCount(event.getCommentCount())
                 .build();
         if (event.getPublishedOn() != null) {
             result.setPublishedOn(event.getPublishedOn().format(DATE_TIME_FORMATTER));
@@ -71,6 +72,7 @@ public class EventMapper {
                 .paid(event.getPaid())
                 .title(event.getTitle())
                 .views(event.getViews())
+                .commentCount(event.getCommentCount())
                 .build();
     }
 
@@ -78,5 +80,13 @@ public class EventMapper {
         return events.stream()
                 .map(EventMapper::toEventShortDto)
                 .collect(Collectors.toList());
+    }
+
+    public EventCommentDto toEventCommentDto(Event event) {
+        return EventCommentDto.builder()
+                .id(event.getId())
+                .title(event.getTitle())
+                .eventDate(event.getEventDate().format(DATE_TIME_FORMATTER))
+                .build();
     }
 }

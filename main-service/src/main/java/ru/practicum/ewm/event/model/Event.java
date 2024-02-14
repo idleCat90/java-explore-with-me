@@ -56,4 +56,6 @@ public class Event {
     private Long views;
     @Transient
     private Long confirmedRequests;
+    @Transient
+    private Long commentCount;
 }

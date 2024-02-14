@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.ewm.comment.service.CommentCountService;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventMapper;
 import ru.practicum.ewm.event.dto.EventShortDto;
@@ -27,6 +28,7 @@ import java.util.Map;
 public class PublicEventServiceImpl implements PublicEventService {
     private final EventRepository eventRepository;
     private final StatsService statsService;
+    private final CommentCountService countService;
 
     @Override
     public List<EventShortDto> findEvents(String text,
@@ -46,11 +48,13 @@ public class PublicEventServiceImpl implements PublicEventService {
 
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(events);
         Map<Long, Long> views = statsService.getViews(events);
+        Map<Long, Long> commentCount = countService.getCommentCount(events);
 
         List<EventShortDto> result = new ArrayList<>();
         events.forEach(event -> {
             event.setConfirmedRequests(confirmedRequests.getOrDefault(event.getId(), 0L));
             event.setViews(views.getOrDefault(event.getId(), 0L));
+            event.setCommentCount(commentCount.getOrDefault(event.getId(), 0L));
             result.add(EventMapper.toEventShortDto(event));
         });
 
@@ -72,9 +76,12 @@ public class PublicEventServiceImpl implements PublicEventService {
         }
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(List.of(event));
         Map<Long, Long> views = statsService.getViews(List.of(event));
+        Map<Long, Long> commentCount = countService.getCommentCount(List.of(event));
+
         statsService.postHit(request);
         event.setConfirmedRequests(confirmedRequests.getOrDefault(event.getId(), 0L));
         event.setViews(views.getOrDefault(event.getId(), 0L));
+        event.setCommentCount(commentCount.getOrDefault(event.getId(), 0L));
 
         EventFullDto result = EventMapper.toEventFullDto(event);
         log.debug("Returned: result={}", result);

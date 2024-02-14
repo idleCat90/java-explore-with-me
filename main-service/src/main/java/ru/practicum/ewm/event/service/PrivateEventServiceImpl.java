@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.category.repository.CategoryRepository;
+import ru.practicum.ewm.comment.service.CommentCountService;
 import ru.practicum.ewm.event.dto.*;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.event.model.state.EventState;
@@ -42,6 +43,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     private final LocationRepository locationRepository;
     private final RequestRepository requestRepository;
     private final StatsService statsService;
+    private final CommentCountService commentCountService;
 
     @Override
     @Transactional
@@ -77,9 +79,12 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         }
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(events);
         Map<Long, Long> views = statsService.getViews(events);
+        Map<Long, Long> commentCount = commentCountService.getCommentCount(events);
+
         for (Event event: events) {
             event.setConfirmedRequests(confirmedRequests.getOrDefault(event.getId(), 0L));
             event.setViews(views.getOrDefault(event.getId(), 0L));
+            event.setCommentCount(commentCount.getOrDefault(event.getId(), 0L));
         }
 
         log.debug("Returned: events={}", events);
@@ -95,8 +100,10 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         });
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(List.of(event));
         Map<Long, Long> views = statsService.getViews(List.of(event));
+        Map<Long, Long> commentCount = commentCountService.getCommentCount(List.of(event));
         event.setConfirmedRequests(confirmedRequests.getOrDefault(event.getId(), 0L));
         event.setViews(views.getOrDefault(event.getId(), 0L));
+        event.setCommentCount(commentCount.getOrDefault(event.getId(), 0L));
 
         log.debug("Event found: {}", event);
         return EventMapper.toEventFullDto(event);
@@ -167,8 +174,10 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(List.of(event));
         Map<Long, Long> views = statsService.getViews(List.of(event));
+        Map<Long, Long> commentCount = commentCountService.getCommentCount(List.of(event));
         event.setConfirmedRequests(confirmedRequests.getOrDefault(event.getId(), 0L));
         event.setViews(views.getOrDefault(event.getId(), 0L));
+        event.setCommentCount(commentCount.getOrDefault(event.getId(), 0L));
 
         EventFullDto result = EventMapper.toEventFullDto(event);
         log.debug("Returned: saved event={}", result);

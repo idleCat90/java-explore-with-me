@@ -23,5 +23,4 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             "where c.event.id in ?1 " +
             "group by c.event.id")
     List<CommentCountDto> getCommentCountByEventIds(List<Long> eventIds);
-
 }

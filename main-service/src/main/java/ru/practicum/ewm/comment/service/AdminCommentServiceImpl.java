@@ -24,7 +24,12 @@ public class AdminCommentServiceImpl implements AdminCommentService {
     public List<CommentDto> search(String text, Integer from, Integer size) {
         log.debug("Method call: search(), text={}", text);
         Pageable pageable = Util.getPageRequestAsc("createdOn", from, size);
-        List<CommentDto> result = CommentMapper.toCommentDtoList(commentRepository.findAllByText(text, pageable));
+        List<CommentDto> result;
+        if (text == null) {
+            result = CommentMapper.toCommentDtoList(commentRepository.findAll(pageable).getContent());
+        } else {
+            result = CommentMapper.toCommentDtoList(commentRepository.findAllByText(text, pageable));
+        }
         log.debug("Returned: comment list size={}", result.size());
         return result;
     }

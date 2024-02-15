@@ -289,6 +289,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/users/:userId/comments?eventId={{eid}}",
 							"host": [
@@ -2161,7 +2170,7 @@
 									"        const comment = await api.addComment(user.id, event.id, rnd.getComment());",
 									"        const foundComment = await api.findComment(comment.id);",
 									"        pm.collectionVariables.set(\"commid\", comment.id);",
-									"        pr.collectionVariables.set(\"response\", foundComment);",
+									"        pm.collectionVariables.set(\"response\", foundComment);",
 									"        await api.addComment(user.id, event.id, rnd.getComment);",
 									"    } catch(err) {",
 									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);",

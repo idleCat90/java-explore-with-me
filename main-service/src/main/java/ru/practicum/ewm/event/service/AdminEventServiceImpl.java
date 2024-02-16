@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.category.repository.CategoryRepository;
+import ru.practicum.ewm.comment.service.CommentCountService;
 import ru.practicum.ewm.event.dto.UpdateEventAdminRequest;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventMapper;
@@ -36,6 +37,7 @@ public class AdminEventServiceImpl implements AdminEventService {
     private final CategoryRepository categoryRepository;
     private final LocationRepository locationRepository;
     private final StatsService statsService;
+    private final CommentCountService countService;
 
     @Override
     @Transactional
@@ -102,8 +104,10 @@ public class AdminEventServiceImpl implements AdminEventService {
 
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(List.of(event));
         Map<Long, Long> views = statsService.getViews(List.of(event));
+        Map<Long, Long> commentCount = countService.getCommentCount(List.of(event));
         event.setConfirmedRequests(confirmedRequests.getOrDefault(event.getId(), 0L));
         event.setViews(views.getOrDefault(event.getId(), 0L));
+        event.setCommentCount(commentCount.getOrDefault(event.getId(), 0L));
 
         EventFullDto result = EventMapper.toEventFullDto(event);
         log.debug("Returned: updated event={}", result);
@@ -119,9 +123,11 @@ public class AdminEventServiceImpl implements AdminEventService {
                 Util.getPageRequestAsc("id", from, size));
         Map<Long, Long> confirmedRequests = statsService.getConfirmedRequests(events);
         Map<Long, Long> views = statsService.getViews(events);
+        Map<Long, Long> commentCount = countService.getCommentCount(events);
         for (Event event : events) {
             event.setConfirmedRequests(confirmedRequests.getOrDefault(event.getId(), 0L));
             event.setViews(views.getOrDefault(event.getId(), 0L));
+            event.setCommentCount(commentCount.getOrDefault(event.getId(), 0L));
         }
 
         log.debug("Returned: events, size={}", events.size());

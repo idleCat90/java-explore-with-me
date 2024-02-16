@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -27,11 +28,11 @@ public class ErrorHandler {
             MethodArgumentNotValidException.class,
             IncorrectParameterException.class,
             ConstraintViolationException.class,
-            MissingServletRequestParameterException.class})
+            MissingServletRequestParameterException.class,
+            HttpMessageNotReadableException.class})
     public ResponseEntity<ApiError> handleBadRequest(final Exception e) {
         log.error("Status: {}, Description: {}, Timestamp: {}",
                 HttpStatus.BAD_REQUEST, e.getMessage(), LocalDateTime.now());
-
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.name(), e.getMessage(),
                 "Bad Request", LocalDateTime.now().format(DATE_TIME_FORMATTER)), HttpStatus.BAD_REQUEST);
     }
@@ -42,7 +43,8 @@ public class ErrorHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), LocalDateTime.now(), e.getStackTrace());
 
         return new ResponseEntity<>(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.name(), e.getMessage(),
-                "Internal Server Error", LocalDateTime.now().format(DATE_TIME_FORMATTER)), HttpStatus.INTERNAL_SERVER_ERROR);
+                "Internal Server Error", LocalDateTime.now().format(DATE_TIME_FORMATTER)),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
